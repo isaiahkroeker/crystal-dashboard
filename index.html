@@ -7,7 +7,7 @@
     <style>
         body {
             font-family: 'Arial Black', Gadget, sans-serif;
-            background-color: #0b1a2d; /* George Fox Navy Blue */
+            background-color: #1a242f;
             color: white;
             margin: 0;
             padding: 20px;
@@ -16,86 +16,82 @@
             align-items: center;
         }
 
-        /* GEORGE FOX LOGO */
+        /* NEW LOGO FROM PROVIDED IMAGE */
         .logo-container {
-            position: fixed;
+            position: absolute;
             top: 20px;
             right: 20px;
-            z-index: 100;
+            text-align: right;
         }
         .logo-container img {
-            width: 180px;
-            filter: drop-shadow(0 0 10px rgba(0,0,0,0.5));
+            width: 250px; /* Large professional logo */
+            border-radius: 5px;
         }
 
         h1 {
-            font-size: 3rem;
-            margin-top: 50px;
-            color: #FDB814; /* George Fox Gold */
-            text-shadow: 2px 2px 5px black;
+            font-size: 3.5rem;
+            margin-top: 60px;
+            color: #d4af37; /* Gold Title */
+            text-align: left;
+            width: 100%;
+            max-width: 1200px;
         }
 
         .dashboard {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 20px;
-            max-width: 1200px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 25px;
+            max-width: 1300px;
             width: 100%;
+            margin-top: 30px;
         }
 
         .card {
-            background: rgba(255, 255, 255, 0.1);
-            backdrop-filter: blur(10px);
-            border: 2px solid #FDB814;
-            border-radius: 25px;
-            padding: 30px;
-            flex: 1;
-            min-width: 350px;
-            text-align: center;
+            background: #24303f;
+            border-radius: 15px;
+            padding: 25px;
             box-shadow: 0 10px 30px rgba(0,0,0,0.5);
         }
 
         .big-number {
-            font-size: 6rem; /* HUGE NUMBERS */
-            line-height: 1;
-            margin: 20px 0;
+            font-size: 7rem;
+            font-weight: bold;
+            margin: 10px 0;
         }
 
         .label {
+            font-size: 1.8rem;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .status {
             font-size: 1.5rem;
-            color: #ddd;
+            color: #a0aec0;
             text-transform: uppercase;
         }
 
-        .elevation-info {
-            background: #152a45;
-            padding: 15px;
-            border-radius: 15px;
+        .sub-info {
             margin-top: 20px;
-            text-align: left;
-            font-size: 1.1rem;
+            font-size: 1.2rem;
+            border-top: 1px solid #3d4d5f;
+            padding-top: 15px;
         }
 
-        .elevation-info div {
-            margin: 5px 0;
-            display: flex;
-            justify-content: space-between;
-        }
-
-        /* WIDGET STYLING */
-        .silver-widget {
-            margin-top: 10px;
-            border-radius: 15px;
-            overflow: hidden;
-            background: white;
+        /* LIVE FEED CONTAINER */
+        .feed-container {
+            height: 400px;
+            overflow-y: auto;
+            background: #ffffff;
+            border-radius: 10px;
+            margin-top: 15px;
         }
     </style>
 </head>
 <body>
 
     <div class="logo-container">
-        <img src="https://www.georgefox.edu/offices/communications/resources/_assets-index/GF-Stacked-Blue.png" alt="George Fox Logo">
+        <img src="https://www.georgefox.edu/offices/communications/resources/_assets-index/GF-Stacked-White.png" alt="University Logo">
     </div>
 
     <h1>JACKSKI DASHBOARD</h1>
@@ -103,60 +99,58 @@
     <div class="dashboard">
         
         <div class="card">
-            <div class="label">Crystal Mtn Temp</div>
+            <div class="label">Crystal Mntn Temp</div>
             <div id="temp" class="big-number">--°</div>
-            <div id="condition" style="font-size: 1.8rem; color: #87CEEB;">Loading...</div>
-            
-            <div class="elevation-info">
-                <div><span>Summit Elevation:</span> <strong>7,012 ft</strong></div>
-                <div><span>Base Elevation:</span> <strong>4,400 ft</strong></div>
-                <div style="border-top: 1px solid #444; padding-top: 5px;">
-                    <span>Freezing Level:</span> <strong id="freezing-level">Scanning...</strong>
-                </div>
+            <div id="condition" class="status">Loading...</div>
+            <div class="sub-info">
+                <div>Summit: 7,012 ft</div>
+                <div>Base: 4,400 ft</div>
+                <div style="color: #63b3ed;">Freezing Level: <span id="freeze">--</span></div>
             </div>
         </div>
 
         <div class="card">
             <div class="label">Silver Price (Per Oz)</div>
-            <div class="silver-widget">
-                <iframe src="https://goldbroker.com/widget/live-price/XAG?currency=USD" width="100%" height="130" style="border: 0; overflow: hidden;"></iframe>
+            <div style="background: white; border-radius: 10px; padding: 5px; margin-top: 15px;">
+                <iframe src="https://goldbroker.com/widget/live-price/XAG?currency=USD" width="100%" height="130" style="border: 0;"></iframe>
             </div>
-            <div style="margin-top: 15px; font-size: 0.9rem; color: #aaa;">Market data updates live via APMEX/GoldBroker</div>
+            <div class="sub-info" style="text-align: center; color: #fbd38d;">
+                LIVE MARKET DATA
+            </div>
+        </div>
+
+        <div class="card">
+            <div class="label">Latest Feed</div>
+            <div class="feed-container">
+                <a class="twitter-timeline" data-height="400" href="https://twitter.com/realDonaldTrump?ref_src=twsrc%5Etfw">Loading Posts...</a> 
+                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            </div>
         </div>
 
     </div>
 
     <script>
-        async function getCrystalWeather() {
+        async function updateWeather() {
             try {
-                // Crystal Mountain Coordinates
                 const res = await fetch('https://api.open-meteo.com/v1/forecast?latitude=46.93&longitude=-121.48&current_weather=true&hourly=freezing_level_height&temperature_unit=fahrenheit');
                 const data = await res.json();
                 
-                // Big Temp
                 document.getElementById('temp').innerText = Math.round(data.current_weather.temperature) + "°";
                 
-                // Freezing Elevation
-                const freezeLevel = data.hourly.freezing_level_height[0];
-                const freezeFeet = Math.round(freezeLevel * 3.28084);
-                document.getElementById('freezing-level').innerText = freezeFeet.toLocaleString() + " ft";
+                const freezeMeters = data.hourly.freezing_level_height[0];
+                const freezeFeet = Math.round(freezeMeters * 3.28084);
+                document.getElementById('freeze').innerText = freezeFeet.toLocaleString() + " ft";
 
-                // Simple Condition Logic
                 const code = data.current_weather.weathercode;
-                let desc = "Clear";
-                if(code > 0) desc = "Cloudy";
-                if(code > 60) desc = "Rain";
-                if(code > 70) desc = "SNOWING";
-                document.getElementById('condition').innerText = desc;
-
-            } catch (e) {
-                console.log("Error fetching weather");
-            }
+                let status = "Clear";
+                if(code > 0) status = "Cloudy";
+                if(code >= 70) status = "SNOWING";
+                document.getElementById('condition').innerText = status;
+            } catch (e) { console.error(e); }
         }
 
-        // Run weather every 5 mins
-        getCrystalWeather();
-        setInterval(getCrystalWeather, 300000);
+        updateWeather();
+        setInterval(updateWeather, 300000);
     </script>
 </body>
 </html>
