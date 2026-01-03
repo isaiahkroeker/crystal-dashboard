@@ -3,11 +3,11 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>JackSki Dashboard</title>
+    <title>ESSENTIALS Dashboard</title>
     <style>
         body {
             font-family: 'Arial Black', Gadget, sans-serif;
-            background-color: #1a242f;
+            background-color: #0b1a2d;
             color: white;
             margin: 0;
             padding: 20px;
@@ -16,30 +16,21 @@
             align-items: center;
         }
 
-        /* NEW LOGO FROM PROVIDED IMAGE */
-        .logo-container {
-            position: absolute;
-            top: 20px;
-            right: 20px;
-            text-align: right;
-        }
-        .logo-container img {
-            width: 250px; /* Large professional logo */
-            border-radius: 5px;
-        }
-
         h1 {
-            font-size: 3.5rem;
-            margin-top: 60px;
-            color: #d4af37; /* Gold Title */
-            text-align: left;
+            font-size: 4rem;
+            margin-top: 20px;
+            color: #ffffff;
+            letter-spacing: 4px;
+            text-align: center;
             width: 100%;
-            max-width: 1200px;
+            border-bottom: 4px solid #FDB814;
+            padding-bottom: 10px;
         }
 
         .dashboard {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
             gap: 25px;
             max-width: 1300px;
             width: 100%;
@@ -47,83 +38,81 @@
         }
 
         .card {
-            background: #24303f;
-            border-radius: 15px;
-            padding: 25px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            background: #152a45;
+            border-radius: 20px;
+            padding: 30px;
+            flex: 1;
+            min-width: 380px;
+            text-align: center;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            border: 1px solid #2d4a6e;
         }
 
         .big-number {
-            font-size: 7rem;
-            font-weight: bold;
+            font-size: 8rem; /* Even bigger numbers */
+            font-weight: 900;
             margin: 10px 0;
+            color: #ffffff;
         }
 
         .label {
             font-size: 1.8rem;
-            color: #ffffff;
-            margin-bottom: 10px;
-        }
-
-        .status {
-            font-size: 1.5rem;
-            color: #a0aec0;
+            color: #FDB814;
             text-transform: uppercase;
         }
 
         .sub-info {
             margin-top: 20px;
-            font-size: 1.2rem;
-            border-top: 1px solid #3d4d5f;
-            padding-top: 15px;
+            font-size: 1.3rem;
+            text-align: left;
+            background: rgba(0,0,0,0.2);
+            padding: 15px;
+            border-radius: 10px;
         }
 
-        /* LIVE FEED CONTAINER */
-        .feed-container {
+        /* NEWS FEED */
+        .feed-box {
             height: 400px;
-            overflow-y: auto;
-            background: #ffffff;
+            background: white;
             border-radius: 10px;
+            overflow: hidden;
             margin-top: 15px;
         }
     </style>
 </head>
 <body>
 
-    <div class="logo-container">
-        <img src="https://www.georgefox.edu/offices/communications/resources/_assets-index/GF-Stacked-White.png" alt="University Logo">
-    </div>
-
-    <h1>JACKSKI DASHBOARD</h1>
+    <h1>ESSENTIALS</h1>
 
     <div class="dashboard">
         
         <div class="card">
-            <div class="label">Crystal Mntn Temp</div>
+            <div class="label">Crystal Mtn Temp</div>
             <div id="temp" class="big-number">--°</div>
-            <div id="condition" class="status">Loading...</div>
+            <div id="condition" style="font-size: 2rem; font-weight: bold;">Loading...</div>
+            
             <div class="sub-info">
-                <div>Summit: 7,012 ft</div>
-                <div>Base: 4,400 ft</div>
-                <div style="color: #63b3ed;">Freezing Level: <span id="freeze">--</span></div>
+                <div style="display: flex; justify-content: space-between;">
+                    <span>Freezing Level:</span> <strong id="freeze" style="color: #87CEEB;">--</strong>
+                </div>
+                <div style="display: flex; justify-content: space-between; margin-top: 10px; font-size: 1rem; color: #ccc;">
+                    <span>Summit: 7,012' | Base: 4,400'</span>
+                </div>
             </div>
         </div>
 
         <div class="card">
             <div class="label">Silver Price (Per Oz)</div>
-            <div style="background: white; border-radius: 10px; padding: 5px; margin-top: 15px;">
+            <div style="background: white; border-radius: 10px; padding: 10px; margin-top: 15px;">
                 <iframe src="https://goldbroker.com/widget/live-price/XAG?currency=USD" width="100%" height="130" style="border: 0;"></iframe>
             </div>
-            <div class="sub-info" style="text-align: center; color: #fbd38d;">
-                LIVE MARKET DATA
-            </div>
+            <div style="margin-top: 20px; font-size: 1.5rem; color: #4CAF50; font-weight: bold;">LIVE SPOT PRICE</div>
         </div>
 
         <div class="card">
-            <div class="label">Latest Feed</div>
-            <div class="feed-container">
-                <a class="twitter-timeline" data-height="400" href="https://twitter.com/realDonaldTrump?ref_src=twsrc%5Etfw">Loading Posts...</a> 
-                <script async src="https://platform.twitter.com/widgets.js" charset="utf-8"></script>
+            <div class="label">Breaking News</div>
+            <div class="feed-box">
+                <iframe width="100%" height="400" src="https://rss.app/embed/v1/ticker/tIisXhM0lX7nK88b" frameborder="0"></iframe>
             </div>
         </div>
 
@@ -144,9 +133,10 @@
                 const code = data.current_weather.weathercode;
                 let status = "Clear";
                 if(code > 0) status = "Cloudy";
+                if(code >= 60) status = "Rain";
                 if(code >= 70) status = "SNOWING";
                 document.getElementById('condition').innerText = status;
-            } catch (e) { console.error(e); }
+            } catch (e) { console.error("Weather error", e); }
         }
 
         updateWeather();
